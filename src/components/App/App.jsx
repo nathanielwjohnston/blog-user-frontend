@@ -1,7 +1,13 @@
 // import styles from "./App.module.css";
+import { Outlet } from "react-router";
 
 function App() {
-  return <></>;
+  return (
+    <>
+      <div>App</div>
+      <Outlet />
+    </>
+  );
 }
 
 export default App;
