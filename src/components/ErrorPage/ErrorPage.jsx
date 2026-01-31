@@ -1,7 +1,7 @@
 // import styles from "./ErrorPage.module.css";
 
 function ErrorPage() {
-  return <></>;
+  return <><div>Error Page</div></>;
 }
 
 export default ErrorPage;

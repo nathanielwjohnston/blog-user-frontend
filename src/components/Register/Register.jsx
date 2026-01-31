@@ -1,9 +1,65 @@
 // import styles from "./Register.module.css";
+import { useState } from "react";
+import { useNavigate } from "react-router";
+import { useCheckLogin } from "../../hooks/useCheckLogin";
 
 function Register() {
+  useCheckLogin();
+
+  let navigate = useNavigate();
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  function updateUsername(e) {
+    setUsername(e.target.value);
+  }
+
+  function updatePassword(e) {
+    setPassword(e.target.value);
+  }
+
+  async function makeRegisterAttempt() {
+    try {
+      const result = await fetch("http://localhost:3000/user-api/register", {
+        method: "POST",
+        body: JSON.stringify({
+          username,
+          password,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      // TODO: check redirect on register success
+      if (result.ok) {
+        // redirect to login
+        navigate("/login");
+      } else {
+        // Could throw here instead
+        console.log("Register failure");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <>
       <div>Register</div>
+      <form>
+        <label>
+          Username
+          <input type="text" value={username} onChange={updateUsername} />
+        </label>
+        <label>
+          Password
+          <input type="text" value={password} onChange={updatePassword} />
+        </label>
+        <button type="button" onClick={makeRegisterAttempt}>
+          Register
+        </button>
+      </form>
     </>
   );
 }
