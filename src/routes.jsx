@@ -24,7 +24,7 @@ const routes = [
         element: <Register />,
       },
       {
-        path: "login",
+        path: "/login",
         element: <Login />,
       },
     ],
