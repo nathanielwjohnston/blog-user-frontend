@@ -1,7 +1,14 @@
 // import styles from "./ErrorPage.module.css";
 
+import { useRouteError } from "react-router";
+
 function ErrorPage() {
-  return <><div>Error Page</div></>;
+  const error = useRouteError();
+  return (
+    <>
+      <div>Error Page - {error.message}</div>
+    </>
+  );
 }
 
 export default ErrorPage;
