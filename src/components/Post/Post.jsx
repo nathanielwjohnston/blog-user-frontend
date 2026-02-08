@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Comment from "../Comment/Comment";
 
+// TODO: re add setAuth for users attempting
+// to make a comment
 function Post() {
   const location = useLocation();
   const [, postId] = location.pathname.split("posts/");

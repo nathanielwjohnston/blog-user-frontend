@@ -1,10 +1,16 @@
 // import styles from "./Register.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { useCheckLogin } from "../../hooks/useCheckLogin";
+import { useOutletContext } from "react-router-dom";
 
 function Register() {
-  useCheckLogin();
+  const { setAuth } = useOutletContext();
+  useCheckLogin(setAuth);
+  useEffect(() => {
+    // Passed into component, therefore not logged in
+    setAuth(false);
+  }, [setAuth]);
 
   let navigate = useNavigate();
 

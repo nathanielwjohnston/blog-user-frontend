@@ -1,10 +1,16 @@
 // import styles from "./Login.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { useCheckLogin } from "../../hooks/useCheckLogin";
+import { useOutletContext } from "react-router-dom";
 
 function Login() {
-  useCheckLogin();
+  const { setAuth } = useOutletContext();
+  useCheckLogin(setAuth);
+  useEffect(() => {
+    // Passed into component, therefore not logged in
+    setAuth(false);
+  }, [setAuth]);
 
   let navigate = useNavigate();
 
@@ -33,8 +39,12 @@ function Login() {
       });
       if (res.ok) {
         const result = await res.json();
+        console.log(result);
+        console.log(result.user);
         // set token
         localStorage.setItem("token", result.token);
+        localStorage.setItem("user", JSON.stringify(result.user));
+        setAuth(true);
         // redirect to home
         // NOTE: was having issues with redirecting
         // when rendering, but technically the component

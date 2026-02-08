@@ -1,9 +1,13 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 
-export function useCheckLogin() {
+export function useCheckLogin(setAuth) {
   let navigate = useNavigate();
+
   useEffect(() => {
+    // Sets auth to true, if api check fails it will
+    // be set to false in parent component
+    setAuth(true);
     const checkAuth = async () => {
       const token = localStorage.getItem("token");
       if (!token) {
@@ -11,7 +15,7 @@ export function useCheckLogin() {
       }
 
       try {
-        const result = await fetch("http://localhost:3000/user-api/user", {
+        const res = await fetch("http://localhost:3000/user-api/user", {
           method: "GET",
           headers: {
             Authorization: `bearer ${token}`,
@@ -19,7 +23,9 @@ export function useCheckLogin() {
         });
 
         // If logged in
-        if (result.ok) {
+        if (res.ok) {
+          const result = await res.json();
+          localStorage.setItem("user", JSON.stringify(result.user));
           navigate("/");
           return;
         }
@@ -29,5 +35,5 @@ export function useCheckLogin() {
     };
 
     checkAuth();
-  }, [navigate]);
+  }, [navigate, setAuth]);
 }
