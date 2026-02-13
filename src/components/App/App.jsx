@@ -14,7 +14,7 @@ function App() {
 
   return (
     <>
-      <Navbar auth={auth} user={user} />
+      <Navbar auth={auth} user={user} setAuth={setAuth} />
       <div>App</div>
       <Outlet context={{ setAuth }} />
     </>

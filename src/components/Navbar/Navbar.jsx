@@ -1,8 +1,32 @@
 // import styles from "./Navbar.module.css";
 
 import { Link } from "react-router";
+import { useNavigate } from "react-router";
 
-function Navbar({ auth, user }) {
+function Navbar({ auth, user, setAuth }) {
+  let navigate = useNavigate();
+
+  async function logout() {
+    try {
+      const token = localStorage.getItem("token");
+      const result = await fetch("http://localhost:3000/user-api/logout", {
+        method: "POST",
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      });
+
+      if (result.ok) {
+        localStorage.setItem("token", "");
+        localStorage.setItem("user", {});
+        setAuth(false);
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <>
       <h4>Navbar</h4>
@@ -15,9 +39,12 @@ function Navbar({ auth, user }) {
             <Link to="/register">Register</Link>
           </span>
         )}
-        {auth && <Link to="/logout">Log out</Link>}
+        {auth && (
+          <Link to="/" onClick={logout}>
+            Log out
+          </Link>
+        )}
       </span>
-      {/* Links: home, logout (login, register depending) */}
     </>
   );
 }

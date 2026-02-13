@@ -11,6 +11,7 @@ export function useCheckLogin(setAuth) {
     const checkAuth = async () => {
       const token = localStorage.getItem("token");
       if (!token) {
+        setAuth(false);
         return;
       }
 
@@ -29,8 +30,10 @@ export function useCheckLogin(setAuth) {
           navigate("/");
           return;
         }
+        setAuth(false);
       } catch (error) {
         console.log("check login error" + error);
+        setAuth(false);
       }
     };
 
