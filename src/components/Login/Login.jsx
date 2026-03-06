@@ -39,8 +39,6 @@ function Login() {
       });
       if (res.ok) {
         const result = await res.json();
-        console.log(result);
-        console.log(result.user);
         // set token
         localStorage.setItem("token", result.token);
         localStorage.setItem("user", JSON.stringify(result.user));

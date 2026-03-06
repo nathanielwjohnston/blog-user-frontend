@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 import { useLocation, useOutletContext } from "react-router-dom";
 import Comment from "../Comment/Comment";
 
-// TODO: re add setAuth for users attempting
-// to make a comment
 function Post() {
   const { setAuth, auth } = useOutletContext();
   const location = useLocation();
@@ -65,10 +63,8 @@ function Post() {
 
       if (res.ok) {
         const comment = await res.json();
-        console.log(comment);
         addCommentToPost(comment);
       } else {
-        // TODO: this is causing fake logout bug
         setAuth(false);
       }
     } catch (error) {

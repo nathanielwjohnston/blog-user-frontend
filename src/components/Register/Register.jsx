@@ -37,7 +37,6 @@ function Register() {
           "Content-Type": "application/json",
         },
       });
-      // TODO: check redirect on register success
       if (result.ok) {
         // redirect to login
         navigate("/login");

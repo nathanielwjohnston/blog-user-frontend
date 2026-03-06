@@ -6,8 +6,7 @@ export function useCheckLogin(setAuth) {
 
   useEffect(() => {
     // Sets auth to true, if api check fails it will
-    // be set to false in parent component
-    setAuth(true);
+    // be set to false idn parent component
     const checkAuth = async () => {
       const token = localStorage.getItem("token");
       if (!token) {
@@ -27,6 +26,7 @@ export function useCheckLogin(setAuth) {
         if (res.ok) {
           const result = await res.json();
           localStorage.setItem("user", JSON.stringify(result.user));
+          setAuth(true);
           navigate("/");
           return;
         }
