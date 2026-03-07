@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 
+import { API_URL } from "../config";
+
 export function useCheckLogin(setAuth) {
   let navigate = useNavigate();
 
@@ -15,7 +17,7 @@ export function useCheckLogin(setAuth) {
       }
 
       try {
-        const res = await fetch("http://localhost:3000/user-api/user", {
+        const res = await fetch(`${API_URL}/user-api/user`, {
           method: "GET",
           headers: {
             Authorization: `bearer ${token}`,

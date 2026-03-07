@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { useLocation, useOutletContext } from "react-router-dom";
-import Comment from "../Comment/Comment";
 
+import Comment from "../Comment/Comment";
+import { API_URL } from "../../config";
 function Post() {
   const { setAuth, auth } = useOutletContext();
   const location = useLocation();
@@ -15,9 +16,7 @@ function Post() {
   useEffect(() => {
     const getPost = async () => {
       try {
-        const res = await fetch(
-          `http://localhost:3000/user-api/posts/${postId}`,
-        );
+        const res = await fetch(`${API_URL}/user-api/posts/${postId}`);
         if (res.ok) {
           const fetchedPost = await res.json();
           setPost(fetchedPost);
@@ -46,7 +45,7 @@ function Post() {
     const token = localStorage.getItem("token");
 
     try {
-      const res = await fetch("http://localhost:3000/user-api/comments", {
+      const res = await fetch(`${API_URL}/user-api/comments`, {
         method: "POST",
         // Don't want to add user id here, otherwise
         // you could falsely post on someone else's
