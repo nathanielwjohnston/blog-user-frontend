@@ -4,6 +4,8 @@ import { useNavigate } from "react-router";
 import { useCheckLogin } from "../../hooks/useCheckLogin";
 import { useOutletContext } from "react-router-dom";
 
+import { API_URL } from "../config";
+
 function Register() {
   const { setAuth } = useOutletContext();
   useCheckLogin(setAuth);
@@ -27,7 +29,7 @@ function Register() {
 
   async function makeRegisterAttempt() {
     try {
-      const result = await fetch("http://localhost:3000/user-api/register", {
+      const result = await fetch(`${API_URL}/user-api/register`, {
         method: "POST",
         body: JSON.stringify({
           username,

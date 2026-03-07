@@ -3,13 +3,15 @@
 import { useEffect, useState } from "react";
 import InPagePost from "../InPagePost/InPagePost";
 
+import { API_URL } from "../config";
+
 function Home() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const res = await fetch("http://localhost:3000/user-api/posts");
+        const res = await fetch(`${API_URL}/user-api/posts`);
         if (res.ok) {
           const fetchedPosts = await res.json();
           setPosts(fetchedPosts);

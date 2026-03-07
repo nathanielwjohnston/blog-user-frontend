@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
 
+import { API_URL } from "../config";
+
 function Comment({ comment, userId, commentId, removeComment, editComment }) {
   const { auth } = useOutletContext();
   const [editing, setEditing] = useState(false);
@@ -19,15 +21,12 @@ function Comment({ comment, userId, commentId, removeComment, editComment }) {
     const token = localStorage.getItem("token");
 
     try {
-      const res = await fetch(
-        `http://localhost:3000/user-api/comments/${commentId}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `bearer ${token}`,
-          },
+      const res = await fetch(`${API_URL}/user-api/comments/${commentId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `bearer ${token}`,
         },
-      );
+      });
 
       if (res.ok) {
         removeComment(commentId);
@@ -45,19 +44,16 @@ function Comment({ comment, userId, commentId, removeComment, editComment }) {
     const token = localStorage.getItem("token");
 
     try {
-      const res = await fetch(
-        `http://localhost:3000/user-api/comments/${commentId}`,
-        {
-          method: "PUT",
-          body: JSON.stringify({
-            content: newContent,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `bearer ${token}`,
-          },
+      const res = await fetch(`${API_URL}/user-api/comments/${commentId}`, {
+        method: "PUT",
+        body: JSON.stringify({
+          content: newContent,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `bearer ${token}`,
         },
-      );
+      });
 
       if (res.ok) {
         const comment = await res.json();

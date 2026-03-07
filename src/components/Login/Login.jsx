@@ -4,6 +4,8 @@ import { useNavigate } from "react-router";
 import { useCheckLogin } from "../../hooks/useCheckLogin";
 import { useOutletContext } from "react-router-dom";
 
+import { API_URL } from "../config";
+
 function Login() {
   const { setAuth } = useOutletContext();
   useCheckLogin(setAuth);
@@ -27,7 +29,7 @@ function Login() {
 
   async function makeLoginAttempt() {
     try {
-      const res = await fetch("http://localhost:3000/user-api/login", {
+      const res = await fetch(`${API_URL}/user-api/login`, {
         method: "POST",
         body: JSON.stringify({
           username,

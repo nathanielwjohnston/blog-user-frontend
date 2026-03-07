@@ -3,13 +3,15 @@
 import { Link } from "react-router";
 import { useNavigate } from "react-router";
 
+import { API_URL } from "../config";
+
 function Navbar({ auth, user, setAuth }) {
   let navigate = useNavigate();
 
   async function logout() {
     try {
       const token = localStorage.getItem("token");
-      const result = await fetch("http://localhost:3000/user-api/logout", {
+      const result = await fetch(`${API_URL}/user-api/logout`, {
         method: "POST",
         headers: {
           Authorization: `bearer ${token}`,
